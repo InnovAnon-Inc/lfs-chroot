@@ -169,8 +169,11 @@ RUN dl m4-1.4.18.tar.xz                        \
  && mv -v     isl{-0.23,}             \
  && $SHELL -eux 057-gcc-pass2         \
  && cd $LFS/sources                   \
- && rm -rf          gcc-10.2.0        \
-                    $HOME/.bin
+ && rm -rf          gcc-10.2.0
+
+#USER root
+#RUN rm -rf /home/lfs/.bin
+
 FROM builder-04 as builder-05
 COPY --from=innovanon/book --chown=root /home/lfs/lfs-sysd-commands/chapter07/* \
                               /home/lfs/.bin/
