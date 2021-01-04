@@ -13,7 +13,7 @@ COPY --from=innovanon/book --chown=root /home/lfs/lfs-sysd-commands/chapter02/* 
 WORKDIR $LFS/sources
 RUN echo dash dash/sh boolean false \
   | debconf-set-selections          \
- && dpkg-reconfigure dash           \
+ && dpkg-reconfigure dash -f noninteractive \
  && $SHELL -eux 016-hostreqs                           \
  && rm -v version-check.sh                             \
  && $SHELL -eux 026-creatingminlayout                  \
