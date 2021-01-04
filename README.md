@@ -17,5 +17,5 @@ Dockerized LFS Chroot Builder
 # Innovations Anonymous
 Free Code for a Free World!
 ==========
-![Corporate Logo](https://i.imgur.com/UD8y4Is.gif)
+![Corporate Logo](https://innovanon-inc.github.io/assets/images/logo.gif)
 

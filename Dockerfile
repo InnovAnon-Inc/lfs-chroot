@@ -46,11 +46,11 @@ RUN tor --verify-config                                 \
  && cd $LFS/sources                                \
  && rm -rf          gcc-10.2.0                     \
  \
- && dl linux-5.9.14.tar.xz                        \
- && cd              linux-5.9.14                     \
+ && dl linux-5.10.4.tar.xz                           \
+ && cd              linux-5.10.4                     \
  && $SHELL -eux 037-linux-headers                    \
  && cd $LFS/sources                                  \
- && rm -rf          linux-5.9.14                     \
+ && rm -rf          linux-5.10.4                     \
  \
  && dl glibc-2.32.tar.xz                        \
  && cd              glibc-2.32                     \
