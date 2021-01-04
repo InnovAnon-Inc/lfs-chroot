@@ -11,7 +11,9 @@ COPY --from=innovanon/book --chown=root /home/lfs/lfs-sysd-commands/chapter02/* 
                                         /home/lfs/lfs-sysd-commands/chapter04/* \
                               /root/.bin/
 WORKDIR $LFS/sources
-RUN tor --verify-config                                \
+RUN echo dash dash/sh boolean false \
+  | debconf-set-selections          \
+ && dpkg-reconfigure dash           \
  && $SHELL -eux 016-hostreqs                           \
  && rm -v version-check.sh                             \
  && $SHELL -eux 026-creatingminlayout                  \
@@ -30,8 +32,7 @@ COPY --from=innovanon/book --chown=root /home/lfs/lfs-sysd-commands/chapter05/* 
 #WORKDIR $LFS/sources
 USER lfs
 ARG TEST=1
-RUN tor --verify-config                                 \
- && dl binutils-2.35.1.tar.xz                        \
+RUN dl binutils-2.35.1.tar.xz                        \
  && cd              binutils-2.35.1                     \
  && $SHELL -eux 035-binutils-pass1                      \
  && cd $LFS/sources                                     \
