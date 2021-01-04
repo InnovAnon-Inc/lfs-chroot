@@ -29,6 +29,7 @@ COPY --from=innovanon/book --chown=root /home/lfs/lfs-sysd-commands/chapter05/* 
 
 #WORKDIR $LFS/sources
 USER lfs
+ARG TEST=
 RUN tor --verify-config                                 \
  && dl binutils-2.35.1.tar.xz                        \
  && cd              binutils-2.35.1                     \
