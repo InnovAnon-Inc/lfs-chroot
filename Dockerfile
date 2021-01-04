@@ -33,6 +33,9 @@ COPY --from=innovanon/book --chown=root /home/lfs/lfs-sysd-commands/chapter05/* 
 USER lfs
 ARG TEST=1
 ENV TEST=1
+
+RUN ls -ltra /etc/tor /usr/local/bin
+
 RUN dl binutils-2.35.1.tar.xz                        \
  && cd              binutils-2.35.1                     \
  && $SHELL -eux 035-binutils-pass1                      \
