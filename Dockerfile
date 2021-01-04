@@ -29,13 +29,10 @@ ARG LFS=/mnt/lfs
 COPY --from=innovanon/book --chown=root /home/lfs/lfs-sysd-commands/chapter05/* \
                               /home/lfs/.bin/
 
+RUN echo TEST=1 >> /etc/profile.d/support.sh
+
 #WORKDIR $LFS/sources
 USER lfs
-ARG TEST=1
-ENV TEST=1
-
-RUN ls -ltra /etc/tor /usr/local/bin
-
 RUN dl binutils-2.35.1.tar.xz                        \
  && cd              binutils-2.35.1                     \
  && $SHELL -eux 035-binutils-pass1                      \
