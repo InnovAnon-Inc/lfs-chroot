@@ -1,5 +1,6 @@
 FROM innovanon/builder as builder-01
 ARG LFS=/mnt/lfs
+ARG TEST=
 # optional
 COPY             --chown=root ./sources/ $LFS/sources/
 COPY --from=innovanon/book --chown=root /home/lfs/lfs-systemd/* \
@@ -11,9 +12,10 @@ COPY --from=innovanon/book --chown=root /home/lfs/lfs-sysd-commands/chapter02/* 
                                         /home/lfs/lfs-sysd-commands/chapter04/* \
                               /root/.bin/
 WORKDIR $LFS/sources
-RUN echo dash dash/sh boolean false \
-  | debconf-set-selections          \
- && dpkg-reconfigure dash -f noninteractive \
+RUN sleep 31                                           \
+ && echo dash dash/sh boolean false                    \
+  | debconf-set-selections                             \
+ && dpkg-reconfigure dash -f noninteractive            \
  && $SHELL -eux 016-hostreqs                           \
  && rm -v version-check.sh                             \
  && $SHELL -eux 026-creatingminlayout                  \
@@ -26,10 +28,9 @@ RUN echo dash dash/sh boolean false \
 
 FROM builder-02 as builder-03
 ARG LFS=/mnt/lfs
+ARG TEST=
 COPY --from=innovanon/book --chown=root /home/lfs/lfs-sysd-commands/chapter05/* \
                               /home/lfs/.bin/
-
-RUN echo TEST=1 >> /etc/profile.d/support.sh
 
 #WORKDIR $LFS/sources
 USER lfs
@@ -68,6 +69,8 @@ RUN dl binutils-2.35.1.tar.xz                        \
  && rm -rf          gcc-10.2.0          \
                     $HOME/.bin
 FROM builder-03 as builder-04
+ARG LFS=/mnt/lfs
+ARG TEST=
 COPY --from=innovanon/book --chown=root /home/lfs/lfs-sysd-commands/chapter06/* \
                               /home/lfs/.bin/
 RUN dl m4-1.4.18.tar.xz                        \
@@ -178,6 +181,7 @@ RUN dl m4-1.4.18.tar.xz                        \
 #RUN rm -rf /home/lfs/.bin
 
 FROM builder-04 as builder-05
+ARG TEST=
 COPY --from=innovanon/book --chown=root /home/lfs/lfs-sysd-commands/chapter07/* \
                               /home/lfs/.bin/
 #WORKDIR /
@@ -189,6 +193,7 @@ RUN $SHELL -eux 059-changingowner \
  && tar cf /tools.tar .
 
 FROM scratch as lfs-chroot
+ARG TEST=
 COPY --from=builder-05 --chown=root /tools.tar /tools.tar
 # TODO copy static tar
 RUN tar xf /tools.tar -C / \
