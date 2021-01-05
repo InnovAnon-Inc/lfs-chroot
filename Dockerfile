@@ -66,8 +66,8 @@ RUN dl binutils-2.35.1.tar.xz                        \
  && cd              gcc-10.2.0          \
  && $SHELL -eux 039-gcc-libstdc++-pass1 \
  && cd $LFS/sources                     \
- && rm -rf          gcc-10.2.0          \
-                    $HOME/.bin
+ && rm -rf          gcc-10.2.0
+#                    $HOME/.bin
 FROM builder-03 as builder-04
 ARG LFS=/mnt/lfs
 ARG TEST=
