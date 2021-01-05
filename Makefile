@@ -8,7 +8,7 @@ chroot: sources/.sentinel
 	docker build -t innovanon/lfs-$@ $(TEST) .
 commit:
 	git add .
-	git commit -m '[Makefile] commit'
+	git commit -m '[Makefile] commit' || :
 	git pull
 	git push
 
