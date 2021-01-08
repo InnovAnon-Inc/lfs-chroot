@@ -112,6 +112,7 @@ RUN sleep 31 \
 #RUN rm -rf /home/lfs/.bin
 
 FROM builder-04 as builder-05
+ARG LFS=/mnt/lfs
 ARG TEST=
 COPY --from=innovanon/book --chown=root /home/lfs/lfs-sysd-commands/chapter07/* \
                               /root/.bin/
