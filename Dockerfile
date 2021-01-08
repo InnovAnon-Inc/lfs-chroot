@@ -121,15 +121,15 @@ USER root
 RUN $SHELL -eux 059-changingowner \
  && $SHELL   -x 060-kernfs        \
  && rm -rf          $HOME/.bin    \
- && cd /tools                     \
- && tar cf /tools.tar .
+ && cd $LFS                       \
+ && tar cf /lfs.tar .
 
 FROM scratch as lfs-chroot
 ARG TEST=
-COPY --from=builder-05 --chown=root /tools.tar /tools.tar
+COPY --from=builder-05 --chown=root /lfs.tar /lfs.tar
 # TODO copy static tar
-RUN tar xf /tools.tar -C / \
- && rm -v  /tools.tar
+RUN tar xf /lfs.tar -C / \
+ && rm -v  /lfs.tar
 # TODO rm static tar
 # TODO setup "chroot" env
 
