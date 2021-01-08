@@ -118,15 +118,7 @@ COPY --from=innovanon/book --chown=root /home/lfs/lfs-sysd-commands/chapter07/* 
 #WORKDIR /
 USER root
 
-# TODO
-RUN ls -ltra /etc/profile.d
-RUN cat /etc/profile.d/homebin.sh
-RUN echo $PATH
-RUN echo $PATH | grep /home/root/.bin
-RUN command -v 059-changingowner
-RUN exit 123
-
-
+RUN chmod -v +x $HOME/.bin/*
 RUN $SHELL -eux 059-changingowner \
  && $SHELL   -x 060-kernfs        \
  && rm -rf          $HOME/.bin    \
