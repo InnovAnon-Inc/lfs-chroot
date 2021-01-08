@@ -114,11 +114,9 @@ RUN sleep 31 \
 FROM builder-04 as builder-05
 ARG TEST=
 COPY --from=innovanon/book --chown=root /home/lfs/lfs-sysd-commands/chapter07/* \
-                              /home/root/.bin/
+                              /root/.bin/
 #WORKDIR /
 USER root
-
-RUN chmod -v +x $HOME/.bin/*
 RUN $SHELL -eux 059-changingowner \
  && $SHELL   -x 060-kernfs        \
  && rm -rf          $HOME/.bin    \
