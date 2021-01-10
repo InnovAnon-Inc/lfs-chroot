@@ -21,6 +21,8 @@ RUN sleep 31 \
  && $SHELL -eux 043-bash                         \
  && cd $LFS/sources                              \
  && rm -rf          bash-5.1                     \
+ && command -v bash \
+ && command -v bash | grep $LFS/bin/bash \
  \
  && dl coreutils-8.32.tar.xz                        \
  && cd              coreutils-8.32                     \
