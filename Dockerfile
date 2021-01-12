@@ -213,3 +213,6 @@ SHELL ["/usr/sbin/chroot", "/mnt/lfs",  \
          "/bin/bash", "--login", "+h", "-c"]
 RUN ls
 
+FROM scratch as squash
+COPY --from=builder-05 / /
+
