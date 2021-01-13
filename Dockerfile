@@ -1,4 +1,5 @@
 FROM innovanon/lfs-prechroot as builder-04
+USER lfs
 ARG LFS=/mnt/lfs
 ARG TEST=
 COPY --from=innovanon/book --chown=root /home/lfs/lfs-sysd-commands/chapter06/* \
@@ -150,12 +151,13 @@ ARG TEST=
 COPY --from=innovanon/book --chown=root /home/lfs/lfs-sysd-commands/chapter07/* \
                               /root/.bin/
 #WORKDIR /
+# TODO tar -p necessary ?
 USER root
 RUN $SHELL -eux 059-changingowner \
  && $SHELL   -x 060-kernfs        \
  && rm -rf          $HOME/.bin    \
  && cd $LFS                       \
- && tar cf /lfs.tar .             \
+ && tar  pcf /lfs.tar .             \
  && exec true || exec false
 
 #FROM innovanon/builder as copyhack
@@ -213,6 +215,10 @@ SHELL ["/usr/sbin/chroot", "/mnt/lfs",  \
          "/bin/bash", "--login", "+h", "-c"]
 RUN ls
 
-FROM scratch as squash
-COPY --from=builder-05 / /
+#FROM builder-05 as squash-tmp
+#USER root
+#RUN  squash.sh
+#FROM scratch as squash
+#ADD --from=squash-tmp /tmp/final.tar /
 
+FROM builder-05
