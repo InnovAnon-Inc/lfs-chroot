@@ -189,8 +189,8 @@ COPY ./curl /usr/local/bin/
 
 #FROM builder-05
 
-FROM lfs-chroot as test
-RUN sleep 91 && curl -L --retries 10 --proxy $SOCKS_PROXY https://duckduckgo.com
+#FROM lfs-chroot as test
+#RUN sleep 91 && curl -L --retries 10 --proxy $SOCKS_PROXY https://duckduckgo.com
 
-FROM lfs-chroot
+#FROM lfs-chroot
 
