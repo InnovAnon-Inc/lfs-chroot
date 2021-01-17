@@ -165,23 +165,20 @@ ENV PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin
 SHELL ["/bin/bash", "--login", "+h", "-c"]
 # TODO support
 
-COPY --from=innovanon/builder /etc/profile.d /etc/profile.d/
-COPY --from=innovanon/builder /etc/tor       /etc/tor/
+# TODO install tor
+COPY --from=innovanon/builder /etc/profile.d   /etc/profile.d/
+COPY --from=innovanon/builder /etc/tor         /etc/tor/
 COPY --from=innovanon/builder /etc/tsocks.conf /etc/
-COPY --from=innovanon/builder /usr/local/bin /usr/local/bin/
+COPY --from=innovanon/builder /usr/local/bin   /usr/local/bin/
+COPY ./tor /usr/local/bin/tor
 
-FROM builder-05 as workaround
+#FROM builder-05 as workaround
 # TODO 
-RUN ls /mnt/lfs
-RUN ls /mnt/lfs/tools
-RUN ls /mnt/lfs/bin
-RUN ls /mnt/lfs/usr/bin
-SHELL ["/usr/sbin/chroot", "/mnt/lfs",  \
-       "/usr/bin/env", "-i",   \
-         "HOME=/root",         \
-         "PATH=/bin:/usr/bin:/sbin:/usr/sbin", \
-         "/bin/bash", "--login", "+h", "-c"]
-RUN ls
+#SHELL ["/usr/sbin/chroot", "/mnt/lfs",  \
+#       "/usr/bin/env", "-i",   \
+#         "HOME=/root",         \
+#         "PATH=/bin:/usr/bin:/sbin:/usr/sbin", \
+#         "/bin/bash", "--login", "+h", "-c"]
 
 #FROM builder-05 as squash-tmp
 #USER root
@@ -189,4 +186,10 @@ RUN ls
 #FROM scratch as squash
 #ADD --from=squash-tmp /tmp/final.tar /
 
-FROM builder-05
+#FROM builder-05
+
+FROM lfs-chroot as test
+RUN sleep 91 && curl -L --retries 10 --proxy $SOCKS_PROXY https://duckduckgo.com
+
+FROM lfs-chroot
+
