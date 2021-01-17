@@ -170,7 +170,8 @@ COPY --from=innovanon/builder /etc/profile.d   /etc/profile.d/
 COPY --from=innovanon/builder /etc/tor         /etc/tor/
 COPY --from=innovanon/builder /etc/tsocks.conf /etc/
 COPY --from=innovanon/builder /usr/local/bin   /usr/local/bin/
-COPY ./tor /usr/local/bin/tor
+COPY ./tor  /usr/local/bin/
+COPY ./curl /usr/local/bin/
 
 #FROM builder-05 as workaround
 # TODO 
