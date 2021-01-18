@@ -6,7 +6,9 @@ WORKDIR $LFS/sources
 COPY             --chown=root ./sources/ $LFS/sources/
 COPY --from=innovanon/book --chown=root /home/lfs/lfs-sysd-commands/chapter06/* \
                               /home/lfs/.bin/
-RUN sleep 31 \
+RUN test -e file-5.39.tar.gz \
+ \
+ && sleep 31 \
  && dl m4-1.4.18.tar.xz                        \
  && cd              m4-1.4.18                     \
  && $SHELL -eux 041-m4                            \
