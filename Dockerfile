@@ -129,8 +129,10 @@ RUN $SHELL -eux 059-changingowner \
  && $SHELL   -x 060-kernfs        \
  && rm -rf          $HOME/.bin    \
  && cd $LFS                       \
- && tar  pcf /lfs.tar .             \
+ && chmod -v 0444 sources/*       \
+ && chmod -v 1777 sources         \
  && exec true || exec false
+ #&& tar  pcf /lfs.tar .             \
 
 #FROM innovanon/builder as copyhack
 #COPY --from=builder-05 /lfs.tar /
@@ -174,8 +176,7 @@ COPY --from=innovanon/builder /etc/profile.d   /etc/profile.d/
 COPY --from=innovanon/builder /etc/tor         /etc/tor/
 COPY --from=innovanon/builder /etc/tsocks.conf /etc/
 COPY --from=innovanon/builder /usr/local/bin   /usr/local/bin/
-COPY ./tor  /usr/local/bin/
-COPY ./curl /usr/local/bin/
+COPY ./tor  ./curl /usr/local/bin/
 
 #FROM builder-05 as workaround
 # TODO 
